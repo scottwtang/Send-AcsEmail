@@ -231,17 +231,18 @@ function Get-AcsEmailStatus {
 
     try {
         $response = Invoke-WebRequest @params -UseBasicParsing
+        $responseJson = ($response | ConvertFrom-Json)
 
-        $statusDescription = switch (($response | ConvertFrom-Json).Status) {
+        $statusDescription = switch ($responseJson.Status) {
             "Dropped"        {"The message could not be processed and was dropped."}
             "Queued"         {"The message has passed basic validations and has been queued to be processed further."}
             "OutForDelivery" {"The message has been processed and is now out for delivery."}
         }
 
         $status = [PSCustomObject] @{
-            MessageId         = ($response | ConvertFrom-Json).MessageId
+            MessageId         = $responseJson.MessageId
             StatusCode        = $response.StatusCode
-            Status            = ($response | ConvertFrom-Json).Status
+            Status            = $responseJson.Status
             StatusDescription = $statusDescription
         }
 
