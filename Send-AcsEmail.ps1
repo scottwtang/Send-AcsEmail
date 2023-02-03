@@ -78,13 +78,13 @@ function Send-AcsEmail {
             Subject of the email message.
 
         .PARAMETER To
-            To recipients.
+            To recipients. Multiple recipients are separated by a semi-colon.
 
         .PARAMETER Cc
-            CC recipients.
+            CC recipients. Multiple recipients are separated by a semi-colon.
 
         .PARAMETER Bcc
-            BCC recipients.
+            BCC recipients. Multiple recipients are separated by a semi-colon.
 
         .PARAMETER Body
             Content of the email.
